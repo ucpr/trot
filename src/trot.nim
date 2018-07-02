@@ -12,15 +12,23 @@ const
   colors = @["#FFFFFF", "#C6E48B", "#7BC96F", "#239A3B", "#196127"]
   space = "  "
 
+#[
 for i in colors:
   setBackgroundColor(stdout, parseColor(i))
   stdout.write(space)
   resetAttributes(stdout)
   echo "reset"
+]#
 
-proc get_log(): string =
+proc get_log(): seq[string] =
   let (outp, errC) = execCmdEx(git_log)
-  return outp
+  # errCでエラーハンドリングが必要です
+  # コマンドの実行に失敗したとき
+  return outp.strip().split("\n")
+
+proc main(): void =
+  echo "Hello World"
 
 if isMainModule:
-  echo get_log()
+  for i in get_log():
+    echo i
