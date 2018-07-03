@@ -22,8 +22,9 @@ for i in colors:
 
 proc get_log(): seq[string] =
   let (outp, errC) = execCmdEx(git_log)
-  # errCでエラーハンドリングが必要です
-  # コマンドの実行に失敗したとき
+  if errC != 0:
+    echo outp
+    quit(1)
   return outp.strip().split("\n")
 
 proc main(): void =
