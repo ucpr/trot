@@ -4,6 +4,7 @@ import strutils, sequtils
 import nre, options
 
 import types
+export types.colorData
 
 let
   regex = re".*<rect.*>.*"
@@ -14,8 +15,17 @@ let
   client = newHttpClient(proxy = if http_proxy.isNil: nil else: newProxy(http_proxy))
   body = client.getContent("https://github.com/users/nve3pd/contributions")
 
-for i in body.strip().split("\n"):
-  let r = i.match(regex)
-  if not r.isnone:
-    echo $($r.get()).find(reColor).get()
-    echo $($r.get()).find(reDate).get()
+proc userContributions*(): seq[colorData] =
+  result = @[]
+  for i in body.strip().split("\n"):
+    let r = i.match(regex)
+    if not r.isNone:
+      let tmp: colorData = (
+        $($r.get()).find(reDate).get(),
+        $($r.get()).find(reColor).get()
+      )
+      result.add(tmp)
+
+if isMainModule:
+  for i in userContributions():
+    echo i
