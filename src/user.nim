@@ -6,14 +6,12 @@ import nre, options
 import types
 
 let
-  http_proxy = getEnv("http_proxy")
   regex = re".*<rect.*>.*"
   reColor = re"fill=\S#\w{6}\S"
   reDate = re"data-date=\S\d{4}-\d{1,2}-\d{1,2}\S"
 
-let
-#  client = newHttpClient(proxy=newProxy(http_proxy))
-  client = newHttpClient()
+  http_proxy = if existsEnv("http_proxy"): getEnv("http_proxy") else: nil
+  client = newHttpClient(proxy = if http_proxy.isNil: nil else: newProxy(http_proxy))
   body = client.getContent("https://github.com/users/nve3pd/contributions")
 
 for i in body.strip().split("\n"):
