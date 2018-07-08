@@ -1,3 +1,1 @@
-type colorData* = object
-  date: string
-  color: string
+type colorData* = tuple[date: string, color: string]
