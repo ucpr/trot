@@ -1,6 +1,5 @@
 import os, osproc, terminal, times
 import strutils, sequtils
-import times
 from colors as cs import parseColor
 
 import user
@@ -12,14 +11,6 @@ const
   colors = @["#FFFFFF", "#C6E48B", "#7BC96F", "#239A3B", "#196127"]
   days = @["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   space = "  "
-
-#[
-for i in colors:
-  setBackgroundColor(stdout, parseColor(i))
-  stdout.write(space)
-  resetAttributes(stdout)
-  echo "reset"
-]#
 
 proc outputColor(color: string): void =
   setBackgroundColor(stdout, parseColor(color))
