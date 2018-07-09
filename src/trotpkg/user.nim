@@ -16,7 +16,18 @@ let
   client = newHttpClient(proxy = if http_proxy.isNil: nil else: newProxy(http_proxy))
 
 proc userContributions*(user: string): seq[colorData] =
-  let body = client.getContent(URI % user)
+  let 
+    res = client.get(URI % user)
+    status = res.status
+    body = res.body
+
+  if status == "404 NOTFOUND":
+    echo status
+    return nil
+  else:
+    echo status
+    return nil
+
   result = @[]
   for i in body.strip().split("\n"):
     let r = i.match(regex)
