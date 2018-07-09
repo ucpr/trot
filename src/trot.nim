@@ -2,7 +2,7 @@ import os, osproc, terminal, times
 import strutils, sequtils
 from colors as cs import parseColor
 
-import user
+import trot/user
 
 enableTrueColors()
 
