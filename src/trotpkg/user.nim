@@ -24,9 +24,6 @@ proc userContributions*(user: string): seq[colorData] =
   if status == "404 NOTFOUND":
     echo status
     return nil
-  else:
-    echo status
-    return nil
 
   result = @[]
   for i in body.strip().split("\n"):
