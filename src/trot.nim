@@ -27,7 +27,11 @@ proc print_glass(glassData: seq[colorData]): void =
     write(stdout, "\n")
 
 proc main(): void =
-  print_glass(userContributions())
+  if paramCount() == 0:
+    quit(0)
+
+  let user = commandLineParams()[0]
+  print_glass(userContributions(user))
 
 if isMainModule:
   main()
