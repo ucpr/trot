@@ -8,7 +8,6 @@ enableTrueColors()
 
 const
   Version = "0.1.0"
-  colors = @["#FFFFFF", "#C6E48B", "#7BC96F", "#239A3B", "#196127"]
   days = @["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   space = "  "
 
