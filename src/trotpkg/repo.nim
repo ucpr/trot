@@ -7,9 +7,9 @@ export types.colorData
 
 const
   git_log = "git log --oneline --branches --reverse --since=\"1year\" --date=iso --pretty=format:\"%ad\""
-  colors = @["#FFFFFF", "#C6E48B", "#7BC96F", "#239A3B", "#196127"]
+  colors = @["#ebedf0", "#C6E48B", "#7BC96F", "#239A3B", "#196127"]
 
-proc `$`(t:TimeInfo) : string =
+proc `$`(t: TimeInfo) : string =
   return format(t, "yyyy-MM-dd")
 
 proc getLogs(): seq[string] =
@@ -24,8 +24,22 @@ proc sumLogs(): CountTable[string] =
   for log in getLogs():
     result.inc(log.split()[0])
 
-proc getAverage(): int =
-  return 1
+proc getAverage(logs: CountTable[string]): int =
+  result = 0
+  for i in logs.values():
+    result += i
+  return (result div len(logs))
+
+proc getColorCode(cnt, average: int): string =
+  result = ""
+  if cnt in 1..(average - 1):
+    result = colors[1]
+  elif cnt in average..(average * 2 - 1):
+    result = colors[2]
+  elif cnt in (average * 2)..(average * 3 - 1):
+    result = colors[3]
+  else:
+    result = colors[4]
 
 proc repoContributions*(): seq[colorData] =
   result = @[]
@@ -33,6 +47,7 @@ proc repoContributions*(): seq[colorData] =
     today: Timeinfo = getLocalTime(getTime())
     lastYear: Timeinfo = today - 1.years
     logs: CountTable[string] = sumLogs()
+    ave: int = getAverage(logs)
   var cnt = 1
 
   while $(lastYear + cnt.days) != $today:
@@ -40,12 +55,12 @@ proc repoContributions*(): seq[colorData] =
     if logs.hasKey($(lastYear + cnt.days)):
       tmp = (
         $($(lastYear + cnt.days)),
-        "hoge"
+        getColorCode(logs[$(lastYear + cnt.days)], ave)
       )
     else:
       tmp = (
         $($(lastYear + cnt.days)),
-        "0"
+        colors[0]
       )
     result.add(tmp)
     cnt += 1
