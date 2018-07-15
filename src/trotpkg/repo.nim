@@ -11,4 +11,5 @@ proc get_log(): seq[string] =
     quit(1)
   return outp.strip().split("\n")
 
-
+if isMainModule:
+  echo get_log()
