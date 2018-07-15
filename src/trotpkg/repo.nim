@@ -7,6 +7,7 @@ export types.colorData
 
 const
   git_log = "git log --oneline --branches --reverse --since=\"1year\" --date=iso --pretty=format:\"%ad\""
+  colors = @["#FFFFFF", "#C6E48B", "#7BC96F", "#239A3B", "#196127"]
 
 proc `$`(t:TimeInfo) : string =
   return format(t, "yyyy-MM-dd")
