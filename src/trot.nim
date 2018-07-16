@@ -26,23 +26,23 @@ proc writeHelp(): void =
 proc writeVersion(): void =
   echo fmt"trot version {Version}"
 
-proc outputColor(color: string): void =
+proc drawColor(color: string): void =
   setBackgroundColor(stdout, parseColor(color))
   write(stdout, space)
   resetAttributes(stdout)
 
-proc print_glass(glassData: seq[colorData]): void =
+proc writeGlass(glassData: seq[colorData]): void =
   for i in days:
     write(stdout, i[0..2] & " ")
     for j in glassData:
       let d: string = $parse(j.date, "yyyy-MM-dd").weekday
       if d == i:
-        outputColor(j.color)
+        drawColor(j.color)
     write(stdout, "\n")
 
 proc main(): void =
   if paramCount() == 0:
-    print_glass(repoContributions())
+    writeGlass(repoContributions())
     quit(0)
 
   let params = commandLineParams()
@@ -54,14 +54,12 @@ proc main(): void =
       if glassData == nil:
         echo fmt"cannot find {val}"
         quit(1)
-      print_glass(glassData)
+      writeGlass(glassData)
     of cmdLongOption, cmdShortOption:
       case key
       of "help", "h": writeHelp()
       of "version", "v": writeVersion()
     of cmdEnd: assert(false)  # cannot happen
-
-#  print_glass(repoContributions())
 
 if isMainModule:
   main()
