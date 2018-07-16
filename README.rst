@@ -37,8 +37,10 @@ usage
 
 ::
 
-  $ trot  # show repository contributions
-  $ trot nve3pd  # show nve3pd`s contributions
+  # show repository contributions
+  $ trot
+  # show nve3pd's contributions
+  $ trot nve3pd
 
 author
 ------
@@ -46,6 +48,4 @@ taichi uchihara (@u_chi_ha_ra_)
 
 license
 -------
-.. image:: https://img.shields.io/github/license/mashape/apistatus.svg
-    :alt: license
-
+MIT
