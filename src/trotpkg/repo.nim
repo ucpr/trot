@@ -45,11 +45,12 @@ proc repoContributions*(): seq[colorData] =
   result = @[]
   let
     today: Timeinfo = getLocalTime(getTime())
-    lastYear: Timeinfo = today - 1.years - 1.days
+    lastYear: Timeinfo = today - 1.years - 2.days
     logs: CountTable[string] = sumLogs()
     ave: int = getAverage(logs)
   var cnt = 1
 
+  echo lastYear, " - ", today
   while $(lastYear + cnt.days) != $(today + 1.days):
     var tmp: colorData
     if logs.hasKey($(lastYear + cnt.days)):
