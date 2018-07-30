@@ -9,6 +9,13 @@ trot is a CLI Application that expresses grass of GitHub at terminal.
 
 .. image:: Screenshot.png
 
+requires
+-----------
+::
+
+  nim >= 0.18.0
+  Terminal supporting True Color
+
 build
 -----
 ::
