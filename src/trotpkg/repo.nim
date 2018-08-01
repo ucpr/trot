@@ -48,7 +48,7 @@ proc getLastYear(today: DateTime): DateTime =
 proc repoContributions*(): seq[colorData] =
   result = @[]
   let
-    today: DateTime = getLocalTime(getTime())
+    today: DateTime = local(now())
     lastYear: DateTime = getLastYear(today)
     logs: CountTable[string] = sumLogs()
     ave: int = getAverage(logs)
@@ -73,4 +73,3 @@ proc repoContributions*(): seq[colorData] =
 
 if isMainModule:
   echo repoContributions().len()
-  discard getLastYear(getLocalTime(getTime()))
