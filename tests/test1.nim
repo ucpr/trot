@@ -1,1 +1,6 @@
-doAssert(1 + 1 == 2)
+import terminal
+import unittest
+
+test "isTrueColorSupported":
+  enableTrueColors()
+  assert(isTrueColorSupported())
