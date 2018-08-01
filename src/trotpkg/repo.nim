@@ -8,6 +8,7 @@ export types.colorData
 const
   git_log = "git log --oneline --branches --reverse --since=\"1year\" --date=iso --pretty=format:\"%ad\""
   colors = @["#ebedf0", "#C6E48B", "#7BC96F", "#239A3B", "#196127"]
+  days = @["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
 proc `$`(t: TimeInfo) : string =
   return format(t, "yyyy-MM-dd")
@@ -41,11 +42,14 @@ proc getColorCode(cnt, average: int): string =
   else:
     result = colors[4]
 
+proc getLastYear(today: DateTime): DateTime =
+  result = today - 1.years - days.find($today.weekday).days
+
 proc repoContributions*(): seq[colorData] =
   result = @[]
   let
-    today: Timeinfo = getLocalTime(getTime())
-    lastYear: Timeinfo = today - 1.years - 2.days
+    today: DateTime = getLocalTime(getTime())
+    lastYear: DateTime = getLastYear(today)
     logs: CountTable[string] = sumLogs()
     ave: int = getAverage(logs)
   var cnt = 1
@@ -69,3 +73,4 @@ proc repoContributions*(): seq[colorData] =
 
 if isMainModule:
   echo repoContributions().len()
+  discard getLastYear(getLocalTime(getTime()))
