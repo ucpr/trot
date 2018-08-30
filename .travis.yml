@@ -15,6 +15,6 @@ before_script:
   - ./koch nimble
   - export PATH=$(pwd)/bin:$PATH
   - cd ..
-script:
+    #script:
   #  - nimble install -y
   # - nimble test
