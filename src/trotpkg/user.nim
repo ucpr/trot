@@ -12,8 +12,8 @@ let
   reDate = re"\d{4}-\d{1,2}-\d{1,2}"
   URI = "https://github.com/users/$1/contributions"
 
-  http_proxy = if existsEnv("http_proxy"): getEnv("http_proxy") else: nil
-  client = newHttpClient(proxy = if http_proxy.isNil: nil else: newProxy(http_proxy))
+  http_proxy = if existsEnv("http_proxy"): getEnv("http_proxy") else: ""
+  client = newHttpClient(proxy = if http_proxy == "": nil else: newProxy(http_proxy))
 
 proc userContributions*(user: string): seq[colorData] =
   let 
@@ -23,7 +23,7 @@ proc userContributions*(user: string): seq[colorData] =
 
   if status == "404 NOTFOUND":
     echo status
-    return nil
+    return @[]
 
   result = @[]
   for i in body.strip().split("\n"):

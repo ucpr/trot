@@ -51,7 +51,7 @@ proc main(): void =
     case kind
     of cmdArgument:
       let glassData = userContributions(key)
-      if glassData == nil:
+      if glassData.len == 0:
         echo fmt"cannot find {val}"
         quit(1)
       writeGlass(glassData)
