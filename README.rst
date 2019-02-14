@@ -20,7 +20,7 @@ build
 -----
 ::
 
-  $nimble build
+  $ nimble build
 
 install
 -------
