@@ -41,6 +41,12 @@ proc writeGlass(glassData: seq[colorData]): void =
     write(stdout, "\n")
 
 proc main(): void =
+  if isTrueColorSupported():
+    enableTrueColors()
+  else:
+    echo "Not support True Color"
+    quit(1)
+
   if paramCount() == 0:
     writeGlass(repoContributions())
     quit(0)
