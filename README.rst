@@ -2,8 +2,8 @@
 trot
 =====
 
-.. image:: https://travis-ci.com/nve3pd/trot.svg?branch=master
-    :target: https://travis-ci.com/nve3pd/trot
+.. image:: https://travis-ci.com/ucpr/trot.svg?branch=master
+    :target: https://travis-ci.com/ucpr/trot
 
 trot is a CLI Application that expresses grass of GitHub at terminal.
 
@@ -26,7 +26,7 @@ install
 -------
 ::
 
-  $ git clone https://github.com/nve3pd/trot
+  $ git clone https://github.com/ucpr/trot
   $ cd trot
   $ nimble install
 
@@ -46,8 +46,8 @@ usage
 
   # show repository contributions
   $ trot
-  # show nve3pd's contributions
-  $ trot nve3pd
+  # show ucpr's contributions
+  $ trot ucpr
 
 author
 ------
