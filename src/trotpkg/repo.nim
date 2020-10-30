@@ -10,7 +10,7 @@ const
   colors = @["#ebedf0", "#C6E48B", "#7BC96F", "#239A3B", "#196127"]
   days = @["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
-proc `$`(t: TimeInfo) : string =
+proc `$`(t: DateTime) : string =
   return format(t, "yyyy-MM-dd")
 
 proc getLogs(): seq[string] =
