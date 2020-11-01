@@ -17,7 +17,7 @@ let
 
 proc userContributions*(user: string): seq[colorData] =
   let 
-    res = client.get(URI % user)
+    res = client.request(URI % user)
     status = res.status
     body = res.body
 
@@ -29,12 +29,12 @@ proc userContributions*(user: string): seq[colorData] =
   for i in body.strip().split("\n"):
     let r = i.match(regex)
     if not r.isNone:
-      let tmp: colorData = (
-        $($r.get()).find(reDate).get(),
-        $($r.get()).find(reColor).get()
-      )
-
-      result.add(tmp)
+      doAssertRaises(UnpackDefect):
+        let tmp: colorData = (
+          $($r.get()).find(reDate).get(),
+          $($r.get()).find(reColor).get()
+        )
+        result.add(tmp)
 
 if isMainModule:
   for i in userContributions("nve3pd"):
