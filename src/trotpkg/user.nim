@@ -1,7 +1,7 @@
 import ospaths
 import httpclient
 import strutils, sequtils
-import nre, options
+import nre
 
 import types
 export types.colorData
@@ -16,7 +16,7 @@ let
   client = newHttpClient(proxy = if http_proxy == "": nil else: newProxy(http_proxy))
 
 proc userContributions*(user: string): seq[colorData] =
-  let 
+  let
     res = client.request(URI % user)
     status = res.status
     body = res.body
@@ -28,7 +28,11 @@ proc userContributions*(user: string): seq[colorData] =
   result = @[]
   for i in body.strip().split("\n"):
     let r = i.match(regex)
+
     if not r.isNone:
+      echo $($r.get())
+      echo $($r.get()).find(reDate).get()
+    #  echo $($r.get()).find(reColor).get()
       doAssertRaises(UnpackDefect):
         let tmp: colorData = (
           $($r.get()).find(reDate).get(),
@@ -37,5 +41,5 @@ proc userContributions*(user: string): seq[colorData] =
         result.add(tmp)
 
 if isMainModule:
-  for i in userContributions("nve3pd"):
+  for i in userContributions("ucpr"):
     echo i
