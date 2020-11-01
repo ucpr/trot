@@ -1,4 +1,4 @@
-FROM nimlang/nim:0.19.0-alpine
+FROM nimlang/nim:1.0.10-alpine-slim
 
 MAINTAINER Taichi Uchihara <hoge.uchihara@gmail.com>
 
